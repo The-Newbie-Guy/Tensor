@@ -1,101 +1,12 @@
-import streamlit as st
-from streamlit_option_menu import option_menu
-import requests
-from PIL import Image, ImageOps
-from io import BytesIO
+# ══ JANGAN DIUBAH ══════════════════════════════════════════════════════
+from kating import KATING_FIELDS, kating_header, kating_menu, render_profiles
 
-st.markdown("""<style>.centered-title {text-align: center;}</style>""",unsafe_allow_html=True)
-st.markdown("<h1 class='centered-title'>BUKU KATING</h1>", unsafe_allow_html=True)
+kating_header()
+menu = kating_menu()
 
-# bagian sini jangan diubah
-def streamlit_menu():
-    selected = option_menu(
-        menu_title=None,
-        options=[
-            "Kesekjenan",
-            "Baleg",
-            "Senator",
-            "Departemen PSDA",
-            "Departemen MIKFES",
-            "Departemen Eksternal",
-            "Departemen Internal",
-            "Departemen SSD",
-            "Departemen Medkraf",
-        ],
-        icons=[
-            "people-fill",
-            "people-fill",
-            "people-fill",
-            "people-fill",
-            "people-fill",
-            "people-fill",
-            "people-fill",
-            "people-fill",
-            "people-fill",
-        ],
-        default_index=0,
-        orientation="horizontal",
-        styles={
-            "container": {"padding": "0!important", "background-color": "#fafafa"},
-            "icon": {"color": "black", "font-size": "19px"},
-            "nav-link": {
-                "font-size": "15px",
-                "text-align": "left",
-                "margin": "0px",
-                "--hover-color": "#eee",
-            },
-            "nav-link-selected": {"background-color": "#FF6F00"},
-        },
-    )
-    return selected
-
-@st.cache_data
-def load_image(url):
-    response = requests.get(url)
-    if response.status_code != 200:
-        st.error(
-            f"Failed to fetch image from {url}, status code: {response.status_code}"
-        )
-        return None
-    try:
-        img = Image.open(BytesIO(response.content))
-        img = ImageOps.exif_transpose(img)
-        img = img.resize((300, 400))
-        return img
-    except Exception as e:
-        st.error(f"Error loading image: {e}")
-        return None
-    
-@st.cache_data
-def display_images_with_data(gambar_urls, data_list):
-    images = []
-    for i, url in enumerate(gambar_urls):
-        with st.spinner(f"Memuat gambar {i + 1} dari {len(gambar_urls)}"):
-            img = load_image(url)
-            if img is not None:
-                images.append(img)
-
-    for i, img in enumerate(images):
-        # Menggunakan Streamlit untuk menampilkan gambar di tengah kolom
-        col1, col2, col3 = st.columns([1, 2, 1])
-        with col2:
-            st.image(img, use_container_width=True)
-
-        if i < len(data_list):
-            st.write(f"Nama: {data_list[i]['nama']}")
-            st.write(f"NIM: {data_list[i]['nim']}")
-            st.write(f"Umur: {data_list[i]['umur']}")
-            st.write(f"Asal: {data_list[i]['asal']}")
-            st.write(f"Alamat: {data_list[i]['alamat']}")
-            st.write(f"Hobbi: {data_list[i]['hobbi']}")
-            st.write(f"Sosial Media: {data_list[i]['sosmed']}")
-            st.write(f"Kesan: {data_list[i]['kesan']}")
-            st.write(f"Pesan: {data_list[i]['pesan']}")
-            st.write("  ")
-    st.write("Semua gambar telah dimuat!")
-menu = streamlit_menu()
-
-# BAGIAN SINI YANG HANYA BOLEH DIUABAH
+# ══ HANYA DARI SINI KE BAWAH YANG BOLEH DIUBAH ═════════════════════════
+# Menambah orang: tambah 1 link di gambar_urls + 1 dict di data_list.
+# Keduanya urut, jadi link di gambar_urls ke-N milik dict di data_list ke-N.
 if menu == "Kesekjenan":
     def kesekjenan():
         gambar_urls = [
@@ -174,7 +85,7 @@ if menu == "Kesekjenan":
                 "pesan":"semoga di beri kemudahan dalam segala urusan"# 1
             },
         ]
-        display_images_with_data(gambar_urls, data_list)
+        render_profiles(gambar_urls, data_list, KATING_FIELDS)
     kesekjenan()
 
 # Tambahkan menu lainnya sesuai kebutuhan
@@ -353,7 +264,7 @@ if menu == "Baleg":
                 "pesan":"semangat menjalani harinya kak"# 1
             },
         ]
-        display_images_with_data(gambar_urls, data_list)
+        render_profiles(gambar_urls, data_list, KATING_FIELDS)
     Baleg()
 
 if menu == "Senator":
@@ -410,7 +321,7 @@ if menu == "Senator":
                 "pesan":"semangat terus kak menjalani kuliahnya"# 1
             },
         ]
-        display_images_with_data(gambar_urls, data_list)
+        render_profiles(gambar_urls, data_list, KATING_FIELDS)
     Senator()
 
 if menu == "Departemen PSDA":
@@ -731,7 +642,7 @@ if menu == "Departemen PSDA":
                 "pesan": "Terus tebar kebaikanmu ke mana pun melangkah, Kak"
             },
         ]
-        display_images_with_data(gambar_urls, data_list)
+        render_profiles(gambar_urls, data_list, KATING_FIELDS)
     Departemen_PSDA()
 
 if menu == "Departemen MIKFES":
@@ -1004,7 +915,7 @@ if menu == "Departemen MIKFES":
                 "pesan": "jangan lupa istirahat bang"
             },
         ]
-        display_images_with_data(gambar_urls, data_list)
+        render_profiles(gambar_urls, data_list, KATING_FIELDS)
     Departemen_MIKFES()
 
 if menu == "Departemen Eksternal":
@@ -1145,6 +1056,7 @@ if menu == "Departemen Eksternal":
                 "sosmed": "@deaa.rsni",
                 "kesan": "selalu tampil dengan senyum",
                 "pesan": "Senyum Kakak bikin suasana jadi lebih ramah dan terbuka"
+            },
             {
                 "nama": "Cindy Laura Manik",
                 "nim": "123450112",
@@ -1300,7 +1212,7 @@ if menu == "Departemen Eksternal":
                 "pesan": "Ide-ide Kak selalu bikin kegiatan berkesan, terus berkarya ya"
             },
         ]
-        display_images_with_data(gambar_urls, data_list)
+        render_profiles(gambar_urls, data_list, KATING_FIELDS)
     Departemen_Eksternal()
 
 if menu == "Departemen Internal":
@@ -1489,7 +1401,7 @@ if menu == "Departemen Internal":
                 "pesan": "semoga sehat selalu ya kak" # 15
             },
         ]
-        display_images_with_data(gambar_urls, data_list)
+        render_profiles(gambar_urls, data_list, KATING_FIELDS)
     Departemen_Internal()
 
 if menu == "Departemen SSD":
@@ -1630,7 +1542,7 @@ if menu == "Departemen SSD":
                 "pesan": "semoga kuliahnya lancar ya kak"   # 11
             },
         ]
-        display_images_with_data(gambar_urls, data_list)
+        render_profiles(gambar_urls, data_list, KATING_FIELDS)
     Departemen_SSD()
 
 if menu == "Departemen Medkraf":
@@ -1855,7 +1767,7 @@ if menu == "Departemen Medkraf":
                 "pesan": "semangat kak menjalani harinya"   # 18
             },
         ]
-        display_images_with_data(gambar_urls, data_list)
+        render_profiles(gambar_urls, data_list, KATING_FIELDS)
     Departemen_Medkraf()
 
 

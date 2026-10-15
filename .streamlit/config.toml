@@ -1,6 +1,9 @@
 [theme]
-primaryColor="#FF6F00"       # Oranye sebagai warna utama
-backgroundColor="#fff0e6"    # Oranye sangat pucat untuk background
-secondaryBackgroundColor="#ffffff"  # Putih untuk widget
-textColor="#000000"          # Hitam untuk teks
+primaryColor="#FF6F00"       # Bara ITERA — hanya aksen
+backgroundColor="#F6F3EB"    # Kalkir — latar konten
+secondaryBackgroundColor="#ffffff"  # Putih untuk widget/kartu
+textColor="#1A1A1E"          # Tinta untuk teks
 font="sans serif"
+
+[browser]
+gatherUsageStats = false

@@ -1,9 +1,15 @@
+# Dipakai seluruh halaman.
 streamlit==1.48.0
 streamlit-option-menu==0.4.0
 Pillow==11.3.0
-numpy
-matplotlib
-seaborn
-plotly
-scikit-learn
-pandas
+
+# Dipakai kating.py untuk mengambil foto dari Google Drive.
+requests>=2.32
+
+# Dipakai tools/KREASI.py dan tools/KREASII.py.
+numpy>=1.26
+pandas>=2.2
+matplotlib>=3.8
+seaborn>=0.13
+scipy>=1.11
+plotly>=5.22
