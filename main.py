@@ -57,6 +57,16 @@ code, .tensor-mono {
     font-family: "IBM Plex Mono", ui-monospace, monospace !important;
 }
 
+[data-testid="stAppViewContainer"] {
+    background-color: #F6F3EB;
+    background-image:
+        radial-gradient(640px 420px at 6% 0%, rgba(0,194,168,0.08), transparent 70%),
+        radial-gradient(760px 520px at 96% 32%, rgba(255,111,0,0.08), transparent 70%),
+        linear-gradient(rgba(16,27,60,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16,27,60,0.05) 1px, transparent 1px);
+    background-size: auto, auto, 30px 30px, 30px 30px;
+}
+
 [data-testid="stSidebar"] {
     position: relative;
     background: #101B3C;
@@ -68,9 +78,20 @@ code, .tensor-mono {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, rgba(255,111,0,0.55), rgba(16,27,60,0) 42%);
+    background: linear-gradient(to bottom, rgba(255,111,0,0.32), rgba(255,111,0,0) 24%);
     opacity: 0.9;
     animation: tensorGlow 20s ease-in-out infinite;
+    pointer-events: none;
+}
+
+[data-testid="stSidebar"]::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, #00C2A8, rgba(0,194,168,0.15) 55%, rgba(0,194,168,0));
     pointer-events: none;
 }
 
@@ -96,7 +117,14 @@ code, .tensor-mono {
 [data-testid="stSidebar"] a:hover,
 [data-testid="stSidebar"] .stNavLink:hover,
 [data-testid="stSidebar"] div[data-testid="stSidebarNav"] a:hover {
-    color: #FFB37A !important;
+    color: #7FE3D0 !important;
+}
+
+/* Halaman aktif: pil mint */
+[data-testid="stSidebar"] a[aria-current="page"],
+[data-testid="stSidebar"] div[data-testid="stSidebarNav"] a[aria-current="page"] {
+    background: rgba(0,194,168,0.24) !important;
+    color: #B9F5EA !important;
 }
 
 /* Untuk teks biasa di sidebar */

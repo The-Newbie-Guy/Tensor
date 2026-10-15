@@ -40,6 +40,9 @@ def _ensure_home_css():
   margin-bottom: 0.2rem;
 }
 .tensor-hero {
+  position: relative;
+  overflow: hidden;
+  background-color: #FBF9F4;
   background-image:
     linear-gradient(rgba(16,27,60,0.07) 1px, transparent 1px),
     linear-gradient(90deg, rgba(16,27,60,0.07) 1px, transparent 1px);
@@ -48,6 +51,26 @@ def _ensure_home_css():
   border-radius: 16px;
   padding: 1.4rem 1.5rem;
   margin-bottom: 1rem;
+}
+.tensor-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(120deg, rgba(16,27,60,0.10), rgba(0,194,168,0.10) 45%, rgba(255,111,0,0.10)),
+    linear-gradient(rgba(16,27,60,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16,27,60,0.05) 1px, transparent 1px);
+  background-size: auto, 28px 28px, 28px 28px;
+  animation: tensorBreathe 18s ease-in-out infinite;
+}
+.tensor-hero > * { position: relative; }
+@keyframes tensorBreathe {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tensor-hero::before { animation: none; opacity: 0.6; }
 }
 .tensor-hero h1 {
   font-size: clamp(2rem, 5vw, 3.4rem);
